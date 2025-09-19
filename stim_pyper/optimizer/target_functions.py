@@ -16,9 +16,9 @@ def get_q(r, k, V=0.1):
     '''
     return (V * r**2) / k
 
-def efield_kernel(L, coord, r, k=8.99e9, e=1e-8):
+def electric_potential_kernel(L, coord, r, k=8.99e9, e=1e-8):
     '''
-    Generate a spherical e-field around a point source (contact).
+    Generate a spherical electrical potential around a point source (contact). Take the gradient of this to get the e-field. 
     Args:
         L: (N, 4) array, where cols 0:3 are x,y,z coords
         coord: (3,) contact location

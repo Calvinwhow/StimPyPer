@@ -12,7 +12,6 @@ def partial_difference_quotient(v, loss_current, index, h, sphere_coords, L, lam
     loss_forward = loss_function(sphere_coords, v_forward, L, lam, directional_models)
     return (loss_forward - loss_current) / h
 
-
 def gradient_vector_handler(v, h, sphere_coords, L, lam, directional_models=None):
     """Computes the gradient vector for the loss function."""
     loss_current = loss_function(sphere_coords, v, L, lam, directional_models)
