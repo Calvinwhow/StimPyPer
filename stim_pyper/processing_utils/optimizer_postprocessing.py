@@ -16,7 +16,6 @@ def process_vta(amplitudes, coordinates, side, output_dir, voxel_size=[0.2, 0.2,
         index = [tuple(c) for c in coordinates].index(coord_tuple)
         updated_fname = f'single_contact_elec_{side}_contact_{index}.nii'
         coord = coord.tolist()
-
         group_indices = []
         if index in [1, 2, 3]:
             group_indices = [1, 2, 3]
@@ -24,7 +23,7 @@ def process_vta(amplitudes, coordinates, side, output_dir, voxel_size=[0.2, 0.2,
             group_indices = [4, 5, 6]
 
         contact_coordinates = [coord] + [coordinates[i].tolist() for i in group_indices if i != index]
-        vta = ModelDirectionalVta(contact_coordinates=contact_coordinates,
+        vta = ModelDirectionalVta(contact_coordinates=[contact_coordinates[0]],
             voxel_size=voxel_size,
             grid_shape=grid_shape,
             output_path=output_dir,
