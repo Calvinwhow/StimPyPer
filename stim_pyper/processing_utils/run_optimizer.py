@@ -73,7 +73,7 @@ class OptimizerProcessor:
     def merge_vtas(self, path, out_dir):
         try:
             bbox = NiftiBoundingBox(path)
-            bbox.gen_mask(out_dir)
+            bbox.gen_mask(out_dir, 'stimpyper_electrode_vtas.nii.gz')
         except ValueError as e:
             print("Electrode was turned off by optimizer. No VTAs to combine/show.")
             
@@ -184,6 +184,7 @@ class OptimizerProcessor:
         """Processes the data and calls handle_nii_map for each combination of lambda."""
         target_coords = self.nii_to_mni(self.nifti_path)
         electrode_info = self.get_electrode_info()
+        sides = ["right", "left"]
         for electrode_idx, electrode_dict in enumerate(electrode_info):
             dir_models_list, elec_coords_list = self.get_directional_electrodes(electrode_dict)
             optima_ampers = self.optimize_electrode(target_coords, elec_coords_list, dir_models_list, thread)
@@ -192,7 +193,7 @@ class OptimizerProcessor:
                 self.merge_vtas(output_direct, os.path.join(self.output_path, f'thread_{thread}', f'electrode_{electrode_idx}'))
             else:
                 output_direct = self.save_vta(optima_ampers, elec_coords_list, electrode_idx, os.path.join(self.output_path, f'electrode_{electrode_idx}'))
-                self.merge_vtas(output_direct, os.path.join(self.output_path, f'electrode_{electrode_idx}'))
+                self.merge_vtas(output_direct, os.path.join(self.output_path, f'electrode_{sides[electrode_idx]}'))
         return electrode_info
             
 if __name__ == "__main__":

@@ -187,7 +187,7 @@ class NiftiBoundingBox:
         self.save_nifti(self._stacked_data, os.path.join(output_dir, '4d_stacked_nifti.nii.gz'))
         self.save_nifti(self._collapsed_data, os.path.join(output_dir, '3d_stacked_nifti.nii.gz'))
         
-    def gen_mask(self, output_dir):
+    def gen_mask(self, output_dir, fname='mask.nii.gz'):
         """
         Generate a mask from the collapsed bounding box data and save it.
         
@@ -198,4 +198,4 @@ class NiftiBoundingBox:
         self.add_niftis_to_bounding_box()
         self.collapse_bbox_to_3d()
         mask = self.collapsed_bbox_to_mask()
-        self.save_nifti(mask, os.path.join(output_dir, 'mask.nii.gz'))
+        self.save_nifti(mask, os.path.join(output_dir, fname))
